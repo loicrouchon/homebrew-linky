@@ -1,34 +1,61 @@
 class Linky < Formula
+  VERSION = "0.1.2".freeze
+  GRAALVM_VERSION = "21.0.0.2".freeze
+  GRAALVM_BASE_URL = "https://github.com/graalvm/graalvm-ce-builds/releases/download".freeze
+
   desc "Symbolic link management"
   homepage "https://github.com/loicrouchon/linky"
-  url "https://github.com/loicrouchon/linky/archive/v0.1.1.tar.gz"
-  sha256 "20fbceedc5a0e821e4f4ae10755f5c461cd9cf8c53d981b03b436e69b57e9bfa"
+  url "https://github.com/loicrouchon/linky/archive/v#{VERSION}.tar.gz"
+  sha256 "ecd1d29381c0d917c9e3bf9512ce4d2de593232ceb4ca8b23360b7e217145bd5"
   license "Apache-2.0"
 
-  bottle do
-    root_url "https://github.com/loicrouchon/homebrew-linky/releases/download/linky-0.1.1"
-    sha256 cellar: :any_skip_relocation, catalina:     "6152f6a8f3d337ed19984d9890fe97a475924b10fea201bdf879c6c0171835e2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "8b8d67eafff3634df10533e11f51450d2fd349264b875292bbae3ce13d86b9a4"
-  end
+  option "with-jvm-runtime", "Uses a JVM for the runtime instead of a native-image (JVM must be installed manually)"
 
-  depends_on "openjdk"
+  depends_on "zlib" unless OS.mac?
 
   LAUNCHER = "build/install/linky/bin/linky".freeze
 
   def install
-    system "./gradlew", "-Pversion=0.1.1", "--console=plain", "clean", "installDist"
-    libexec.install Dir["build/install/linky/lib/*"]
-    update_launcher
-    bin.install LAUNCHER
+    install_jvm_mode if build.with? "jvm-runtime"
+    install_native_mode if build.without? "jvm-runtime"
   end
 
-  def update_launcher
-    lib_linked_launcher = File.read(LAUNCHER)
-    libexec_linked_launcher = lib_linked_launcher.gsub(%r{\$APP_HOME/lib/}, "$APP_HOME/libexec/")
-    File.open(LAUNCHER, "w") { |file| file.puts libexec_linked_launcher }
+  def install_jvm_mode
+    system "./gradlew -Pversion=#{VERSION} --console=plain clean installDist"
+    inreplace LAUNCHER, %r{\$APP_HOME/lib/}, "$APP_HOME/libexec/"
+    bin.install LAUNCHER
+    libexec.install Dir["build/install/linky/lib/*"]
+  end
+
+  def install_native_mode
+    graalvm_home = install_native_image_compiler
+    ENV["JAVA_HOME"] = graalvm_home
+    ENV["GRAALVM_HOME"] = graalvm_home
+    system "./gradlew -Pversion=#{VERSION} --console=plain clean buildNativeImage"
+    bin.install "build/libs/linky"
+  end
+
+  def install_native_image_compiler
+    graalvm_arch = ""
+    graalvm_home = ""
+    on_linux do
+      graalvm_arch = "graalvm-ce-java11-linux-amd64"
+      graalvm_home = "#{Dir.pwd}/graalvm/graalvm-ce-java11-#{GRAALVM_VERSION}"
+    end
+    on_macos do
+      graalvm_arch = "graalvm-ce-java11-darwin-amd64"
+      graalvm_home = "#{Dir.pwd}/graalvm/graalvm-ce-java11-#{GRAALVM_VERSION}/Contents/Home"
+    end
+    graalvm_url = "#{GRAALVM_BASE_URL}/vm-#{GRAALVM_VERSION}/#{graalvm_arch}-#{GRAALVM_VERSION}.tar.gz"
+    system "curl --silent -L #{graalvm_url} -o graalvm.tar.gz"
+    system "mkdir -p graalvm"
+    system "tar xzf graalvm.tar.gz --directory graalvm"
+    system "ls -l #{graalvm_home}"
+    system "#{graalvm_home}/bin/gu install native-image"
+    graalvm_home
   end
 
   test do
-    assert_equal "Linky version 0.1.1", shell_output("#{bin}/linky --version").strip
+    assert_equal "Linky version #{VERSION}", shell_output("#{bin}/linky --version").strip
   end
 end

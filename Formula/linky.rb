@@ -5,6 +5,12 @@ class Linky < Formula
   sha256 "20fbceedc5a0e821e4f4ae10755f5c461cd9cf8c53d981b03b436e69b57e9bfa"
   license "Apache-2.0"
 
+  bottle do
+    root_url "https://github.com/loicrouchon/homebrew-linky/releases/download/linky-0.1.1"
+    sha256 cellar: :any_skip_relocation, catalina:     "6152f6a8f3d337ed19984d9890fe97a475924b10fea201bdf879c6c0171835e2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "8b8d67eafff3634df10533e11f51450d2fd349264b875292bbae3ce13d86b9a4"
+  end
+
   depends_on "openjdk"
 
   LAUNCHER = "build/install/linky/bin/linky".freeze

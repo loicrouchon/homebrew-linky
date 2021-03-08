@@ -1,5 +1,11 @@
 class Linky < Formula
   VERSION = "0.1.2".freeze
+
+  bottle do
+    root_url "https://github.com/loicrouchon/homebrew-linky/releases/download/linky-0.1.2"
+    sha256 cellar: :any_skip_relocation, catalina:     "e1dd29f39102d968e7e50c99d46d3e098787b47cad882309043713f2d70e79b5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "23fe5235b736d85054531fdfb59d6984039e1742ac940b4f0939092c536587ef"
+  end
   GRAALVM_VERSION = "21.0.0.2".freeze
   GRAALVM_BASE_URL = "https://github.com/graalvm/graalvm-ce-builds/releases/download".freeze
 

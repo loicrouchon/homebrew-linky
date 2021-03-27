@@ -1,10 +1,10 @@
-# Tap loicrouchon/linky
+# Tap loicrouchon/symly
 
 ## How do I install these formulae?
 
-`brew install loicrouchon/linky/linky`
+`brew install loicrouchon/symly/symly`
 
-Or `brew tap loicrouchon/linky` and then `brew install linky`.
+Or `brew tap loicrouchon/symly` and then `brew install symly`.
 
 ## Documentation
 

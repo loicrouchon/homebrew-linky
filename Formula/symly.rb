@@ -7,6 +7,12 @@ class Symly < Formula
   sha256 "5045e2175b00b9b31d1c5163b54ba60c7eea1f4a3c897343c61e0887681165d4"
   license "Apache-2.0"
 
+  bottle do
+    root_url "https://github.com/loicrouchon/homebrew-symly/releases/download/symly-0.1.4"
+    sha256 cellar: :any_skip_relocation, catalina:     "1004ed698452df5dbe7fb5ac0b084940224a896a142b8ed1486c8e0fb1774495"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "8ca324eff8a4210e6ef1fc86623b06e7a7449d1ec6f394225ac049a815681bcd"
+  end
+
   option "with-jvm-runtime", "Uses a JVM for the runtime instead of a native-image (JVM must be installed manually)"
 
   depends_on "zlib" unless OS.mac?

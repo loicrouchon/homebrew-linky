@@ -34,7 +34,7 @@ class Symly < Formula
   def install_native_mode
     ENV["VERSION"] = VERSION
     system "make", "clean", "build"
-    bin.install "build/libs/symly"
+    bin.install "build/bin/symly"
   end
 
   test do

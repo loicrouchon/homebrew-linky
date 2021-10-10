@@ -1,5 +1,5 @@
 class Symly < Formula
-  VERSION = "0.2.1".freeze
+  VERSION = "0.1.1".freeze
 
   desc "Symbolic link management"
   homepage "https://github.com/loicrouchon/symly"

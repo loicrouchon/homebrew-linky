@@ -8,9 +8,9 @@ class Symly < Formula
   license "Apache-2.0"
 
   bottle do
-    root_url "https://github.com/loicrouchon/homebrew-symly/releases/download/symly-0.2.3"
-    sha256 cellar: :any_skip_relocation, catalina:     "24bdf0e332dd09fdaf3c8d1dab5eee1be056e4702513569fc5d30ee791eed730"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "8870f94bca45fdce6e528049db2f9c1e657377da95c3a3086a5c2a1ba41e77e2"
+    root_url "https://github.com/loicrouchon/homebrew-symly/releases/download/symly-0.3.1"
+    sha256 cellar: :any_skip_relocation, catalina:     "9182ce4954b926888153d8f84fc856c17eefc6d79c34916704f4106faf0a4e4c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "c6db96ae0f37bd0aca15f4310ba83a5fc24bc93772ec0cd64f8acdf2cf8a97bc"
   end
 
   option "with-jvm-runtime", "Uses a JVM for the runtime instead of a native-image (JVM must be installed manually)"

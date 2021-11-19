@@ -13,28 +13,15 @@ class Symly < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux: "c6db96ae0f37bd0aca15f4310ba83a5fc24bc93772ec0cd64f8acdf2cf8a97bc"
   end
 
-  option "with-jvm-runtime", "Uses a JVM for the runtime instead of a native-image (JVM must be installed manually)"
-
-  depends_on "zlib" unless OS.mac?
-
-  LAUNCHER = "build/install/symly/bin/symly".freeze
+  depends_on "openjdk"
 
   def install
-    install_jvm_mode if build.with? "jvm-runtime"
-    install_native_mode if build.without? "jvm-runtime"
-  end
-
-  def install_jvm_mode
-    system "./gradlew", "-Pversion=#{VERSION}", "--console=plain", "clean", "installDist"
-    inreplace LAUNCHER, %r{\$APP_HOME/lib/}, "$APP_HOME/libexec/"
-    bin.install LAUNCHER
-    libexec.install Dir["build/install/symly/lib/*"]
-  end
-
-  def install_native_mode
-    ENV["VERSION"] = VERSION
-    system "make", "clean", "build"
-    bin.install "build/bin/symly"
+    system "./gradlew", "-Pversion=#{VERSION}", "--console=plain", "clean", "check", "installDist"
+    bin.install "src/main/packaging/homebrew/symly"
+    libexec.install Dir["build/install/symly/bin"]
+    libexec.install Dir["build/install/symly/lib"]
+    doc.install Dir["build/install/symly/doc/html5/*"]
+    man1.install Dir["build/install/symly/doc/manpage/*"]
   end
 
   test do

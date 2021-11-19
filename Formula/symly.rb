@@ -18,8 +18,8 @@ class Symly < Formula
   def install
     system "./gradlew", "-Pversion=#{VERSION}", "--console=plain", "clean", "check", "installDist"
     bin.install "src/main/packaging/homebrew/symly"
-    libexec.install Dir["build/install/symly/bin"]
-    libexec.install Dir["build/install/symly/lib"]
+    libexec.install "build/install/symly/bin"
+    libexec.install "build/install/symly/lib"
     doc.install Dir["build/install/symly/doc/html5/*"]
     man1.install Dir["build/install/symly/doc/manpage/*"]
   end

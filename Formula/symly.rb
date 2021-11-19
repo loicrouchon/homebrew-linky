@@ -1,10 +1,10 @@
 class Symly < Formula
-  VERSION = "0.3.1".freeze
+  VERSION = "0.3.5".freeze
 
   desc "Symbolic link management"
   homepage "https://github.com/loicrouchon/symly"
   url "https://github.com/loicrouchon/symly/archive/v#{VERSION}.tar.gz"
-  sha256 "615b00aa9623e345832e39c087c536c66177a1e85189090126dc633ec53ff173"
+  sha256 "a2cbec90d2636388c9b0ea2c69eb81bf101a00dad75854ee87b480a40f90256c"
   license "Apache-2.0"
 
   bottle do

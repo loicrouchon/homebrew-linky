@@ -1,43 +1,20 @@
 class Symly < Formula
-  VERSION = "0.3.1".freeze
-
-  desc "Symbolic link management"
+  desc "Symbolic link management tool"
   homepage "https://github.com/loicrouchon/symly"
-  url "https://github.com/loicrouchon/symly/archive/v#{VERSION}.tar.gz"
-  sha256 "615b00aa9623e345832e39c087c536c66177a1e85189090126dc633ec53ff173"
-  license "Apache-2.0"
+  version "0.4"
+  url "https://github.com/loicrouchon/symly/releases/download/v0.4/symly-0.4-homebrew-bottle.zip"
+  sha256 "29e715888697e00955db07d45e867ee47218f9f077bcfc226211e25dc9ee6cbc"
+  license "Apache-2"
 
-  bottle do
-    root_url "https://github.com/loicrouchon/homebrew-symly/releases/download/symly-0.3.1"
-    sha256 cellar: :any_skip_relocation, catalina:     "9182ce4954b926888153d8f84fc856c17eefc6d79c34916704f4106faf0a4e4c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "c6db96ae0f37bd0aca15f4310ba83a5fc24bc93772ec0cd64f8acdf2cf8a97bc"
-  end
-
-  option "with-jvm-runtime", "Uses a JVM for the runtime instead of a native-image (JVM must be installed manually)"
-
-  depends_on "zlib" unless OS.mac?
-
-  LAUNCHER = "build/install/symly/bin/symly".freeze
+  depends_on "openjdk"
 
   def install
-    install_jvm_mode if build.with? "jvm-runtime"
-    install_native_mode if build.without? "jvm-runtime"
-  end
-
-  def install_jvm_mode
-    system "./gradlew", "-Pversion=#{VERSION}", "--console=plain", "clean", "installDist"
-    inreplace LAUNCHER, %r{\$APP_HOME/lib/}, "$APP_HOME/libexec/"
-    bin.install LAUNCHER
-    libexec.install Dir["build/install/symly/lib/*"]
-  end
-
-  def install_native_mode
-    ENV["VERSION"] = VERSION
-    system "make", "clean", "build"
-    bin.install "build/bin/symly"
+    libexec.install Dir["*"]
+    bin.install_symlink "#{libexec}/bin/symly"
   end
 
   test do
-    assert_equal "Symly version #{VERSION}", shell_output("#{bin}/symly --version").strip
+    output = shell_output("#{bin}/symly --version")
+    assert_match "0.4", output
   end
 end

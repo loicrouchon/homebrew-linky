@@ -3,7 +3,7 @@ class Symly < Formula
   homepage "https://github.com/loicrouchon/symly"
   url "https://github.com/loicrouchon/symly/releases/download/v0.6.1/symly-0.6.1-homebrew-bottle.zip"
   version "0.6.1"
-  sha256 "a2efe417d5d8bc569f9237fc7087ec4abbfe2f0ec30077dc4ca7605b16883d28"
+  sha256 "13e14a65f7372e522f9587e7ada7817925b3e9226940362a1fe89b3424f6178f"
   license "Apache-2.0"
 
   depends_on "coreutils"

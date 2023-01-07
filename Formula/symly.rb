@@ -1,9 +1,9 @@
 class Symly < Formula
   desc "A tool for managing symbolic links"
   homepage "https://github.com/loicrouchon/symly"
-  url "https://github.com/loicrouchon/symly/releases/download/v0.8.2/symly-0.8.2-homebrew-bottle.zip"
-  version "0.8.2"
-  sha256 "502ae381530b4ec414f82a041bf6cf2ff6150e145956424caa8b53aa7c809d92"
+  url "https://github.com/loicrouchon/symly/releases/download/v0.9.0/symly-0.9.0-homebrew-bottle.zip"
+  version "0.9.0"
+  sha256 "cce30d9a86caff941769e9e76d90448be982cf3154a1533145123926d30264f7"
   license "Apache-2.0"
 
   depends_on "coreutils"
@@ -15,6 +15,6 @@ class Symly < Formula
 
   test do
     output = shell_output("#{bin}/symly --version")
-    assert_match "0.8.2", output
+    assert_match "0.9.0", output
   end
 end

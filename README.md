@@ -46,3 +46,17 @@ If you get a dialog stating the cask is broken try installing with `--no-quarant
 
 ## Documentation
 `brew help`, `man brew` or check [Homebrew's documentation](https://docs.brew.sh).
+
+## Adding new formula
+
+Once a new formula has been added to the [./Formula](./Formula) directory, they can be tested with:
+
+```shell
+ brew install --build-from-source ./Formula/<FORMULA>.rb
+```
+
+Brew audit can also be performed with:
+
+```shell
+brew audit ./Formula/<FORMULA>.rb
+```

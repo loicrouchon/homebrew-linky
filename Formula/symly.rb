@@ -1,8 +1,9 @@
 class Symly < Formula
   desc "Utility for centralizing sparse file trees with symbolic links"
   homepage "https://github.com/loicrouchon/symly"
-  url "https://github.com/loicrouchon/symly/releases/download/v0.10.4/symly-0.10.4-homebrew-bottle.zip"
-  sha256 "126c67e73f00ce46c3f6f8a0a3748d8eadc1f2468a5de1f4c771b7ceea3acd60"
+  url "https://github.com/loicrouchon/symly/releases/download/v0.11.3/symly-0.11.3-homebrew.zip"
+  version "0.11.3"
+  sha256 "75ab263ed76d663d0358c190a0dc3505bf4b712402fdf3d6fe535cad93e86f32"
   license "Apache-2.0"
 
   depends_on "coreutils"
@@ -14,6 +15,6 @@ class Symly < Formula
 
   test do
     output = shell_output("#{bin}/symly --version")
-    assert_match "0.10.4", output
+    assert_match "0.11.3", output
   end
 end

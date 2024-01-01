@@ -3,7 +3,7 @@ class Findjava < Formula
 
   desc "Finds the best JVM to run your java program"
   homepage "https://github.com/loicrouchon/findjava"
-  url "https://github.com/loicrouchon/findjava/archive/v#{VERSION}.tar.gz"
+  url "https://github.com/loicrouchon/findjava/archive/v0.3.2.tar.gz"
   sha256 "066a91ea298ed49037bc7306d59224bcf82eded72c38af79598bab49f97484df"
   license "Apache-2.0"
 
